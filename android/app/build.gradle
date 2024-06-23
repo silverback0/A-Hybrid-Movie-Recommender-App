@@ -1,0 +1,96 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: file("$flutterRoot/packages/flutter_tools/gradle/flutter.gradle")
+
+android {
+
+    compileSdkVersion flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += 'src/main/java'
+        main.aidl.srcDirs += 'src/main/aidl'
+        main.res.srcDirs += 'src/main/res'
+        main.assets.srcDirs += 'src/main/assets'
+        main.manifest.srcFile 'src/main/AndroidManifest.xml'
+    }
+
+    defaultConfig {
+        applicationId "com.example.my_movie_recommender_app"
+        minSdkVersion 19
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'my-key-alias'
+            keyPassword '@Muchach0j1'
+            storeFile file('C:/Users/chris/OneDrive/Documents/my projects/project 1/my_movie_recommender_app/my-release-key.keystore')  
+            storePassword '@Muchach0j1'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false // Enable code shrinking for release build
+            shrinkResources false // Enable resource shrinking for release build
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false // Disable code shrinking for debug build
+            shrinkResources false // Disable resource shrinking for debug build
+        }
+    }
+}
+
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics:20.0.1'
+    implementation 'com.google.firebase:firebase-core:20.0.1'
+}
+
+apply plugin: 'com.google.gms.google-services'
