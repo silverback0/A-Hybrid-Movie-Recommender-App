@@ -91,12 +91,13 @@ The recommendation engine uses the MovieLens Latest Small dataset, including:
 ---
 
 ## Screenshots
-
-<img src="screenshots/home.jpg" width="220"/>
-<img src="screenshots/search.jpg" width="220"/>
-<img src="screenshots/details.jpg" width="220"/>
-<img src="screenshots/recommendations.jpg" width="220"/>
-<img src="screenshots/watchlist.jpg" width="220"/>
+<p align="center">
+ <img src="screenshots/home.jpg" width="220"/>
+ <img src="screenshots/search.jpg" width="220"/>
+ <img src="screenshots/details.jpg" width="220"/>
+ <img src="screenshots/recommendations.jpg" width="220"/>
+ <img src="screenshots/watchlist.jpg" width="220"/>
+<p/>
 
 ---
 
