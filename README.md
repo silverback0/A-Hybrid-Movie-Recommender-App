@@ -92,23 +92,23 @@ The recommendation engine uses the MovieLens Latest Small dataset, including:
 
 ## Screenshots
 <p align="center">
-  <img src="screenshots/home.jpg" width="220" height="450"/>
-  <img src="screenshots/search.jpg" width="220" height="450"/>
+  <img src="screenshots/home.jpg" width="400" height="450"/>
+  <img src="screenshots/search.jpg" width="400" height="450"/>
 </p>
 
 <p align="center">
-  <img src="screenshots/details.jpg" width="220" height="450"/>
-  <img src="screenshots/poster.jpg" width="220" height="450"/>
+  <img src="screenshots/details.jpg" width="400" height="450"/>
+  <img src="screenshots/poster.jpg" width="400" height="450"/>
 </p>
 
 <p align="center">
-  <img src="screenshots/movies.jpg" width="220" height="450"/>
-  <img src="screenshots/recommendations.jpg" width="220" height="450"/>
+  <img src="screenshots/movies.jpg" width="400" height="450"/>
+  <img src="screenshots/recommendations.jpg" width="400" height="450"/>
 </p>
 
 <p align="center">
-  <img src="screenshots/similar.jpg" width="220" height="450"/>
-  <img src="screenshots/watchlist.jpg" width="220" height="450"/>
+  <img src="screenshots/similar.jpg" width="400" height="450"/>
+  <img src="screenshots/watchlist.jpg" width="400" height="600"/>
 </p>
 
 ---
