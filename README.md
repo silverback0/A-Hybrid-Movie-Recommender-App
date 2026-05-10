@@ -107,7 +107,7 @@ The recommendation engine uses the MovieLens Latest Small dataset, including:
 </p>
 
 <p align="center">
-  <img src="screenshots/similar.jpg" width="400" height="450"/>
+  <img src="screenshots/similar.jpg" width="400" height="600"/>
   <img src="screenshots/watchlist.jpg" width="400" height="600"/>
 </p>
 
