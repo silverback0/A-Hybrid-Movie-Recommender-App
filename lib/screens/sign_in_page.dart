@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../userprofile.dart';
 import '/authentication_service.dart';
-import '../../screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sign_up_page.dart';
 
@@ -81,35 +80,26 @@ class _SignInPageState extends State<SignInPage> {
                         } catch (error) {
                           errorMessage = error.toString();
                         }
-                        if (errorMessage == null) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const HomePage(),
-                            ),
-                          );
+                        String displayMessage;
+                        if (errorMessage != null &&
+                            errorMessage.contains('wrong-password')) {
+                          displayMessage =
+                              'Invalid password. Please try again.';
+                        } else if (errorMessage != null &&
+                            errorMessage.contains('user-not-found')) {
+                          displayMessage =
+                              'User not found. Please check your credentials.';
                         } else {
-                          String displayMessage;
-                          if (errorMessage.contains('wrong-password')) {
-                            displayMessage =
-                                'Invalid password. Please try again.';
-                          } else if (errorMessage.contains('user-not-found')) {
-                            displayMessage =
-                                'User not found. Please check your credentials.';
-                          } else {
-                            displayMessage =
-                                'An error occurred. Please try again later.';
-                          }
-                          // ignore: use_build_context_synchronously
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(displayMessage),
-                            ),
-                          );
+                          displayMessage =
+                              'An error occurred. Please try again later.';
                         }
-                        setState(() {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(displayMessage),
+                          ),
+                        );
+                                              setState(() {
                           _loading = false;
                         });
                       }

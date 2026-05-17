@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_movie_recommender_app/screens/profile_page.dart';
 import 'package:my_movie_recommender_app/userprofile.dart';
 import '/authentication_service.dart';
-import '../../../screens/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final UserProfileService userProfileService;
@@ -107,34 +105,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         } catch (error) {
                           errorMessage = error.toString();
                         }
-                        if (errorMessage == null) {
-                          // ignore: use_build_context_synchronously
-                          final userProfile = await userProfileService
-                              .getUserProfile(_authService.currentUser!.uid);
-                          print('UserProfile name: ${userProfile.name}');
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  ProfilePage(userProfile: userProfile),
-                            ),
-                          );
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const HomePage(),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(errorMessage),
-                            ),
-                          );
-                        }
-
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(errorMessage ?? 'An unexpected error occurred'),
+                          ),
+                        );
+                      
                         setState(() {
                           _loading = false;
                         });

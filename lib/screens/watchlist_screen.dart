@@ -140,7 +140,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                     if (rating != null) {
                       _updateUserRating(media, rating);
                     }
-                  },
+                                  },
                 );
               },
             ),

@@ -1,0 +1,2 @@
+C:/Users/Administrator/Documents/projo/A-Hybrid-Movie-Recommender-App/android/app/.cxx/debug/5p2g186r/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Administrator/Documents/projo/A-Hybrid-Movie-Recommender-App/android/app/.cxx/debug/5p2g186r/x86_64/CMakeFiles/rebuild_cache.dir

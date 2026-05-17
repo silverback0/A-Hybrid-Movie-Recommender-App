@@ -6,30 +6,47 @@ Future<List<dynamic>> fetchRecommendedMovies(
   String title,
 ) async {
   try {
-    RemoteConfigService remoteConfigService = RemoteConfigService();
+    RemoteConfigService remoteConfigService =
+        RemoteConfigService();
+
     await remoteConfigService.initialize();
 
-    String ipAddress = remoteConfigService.flaskIpAddress;
+    // Get complete API URL from Firebase
+    String apiBaseUrl =
+        remoteConfigService.apiBaseUrl;
 
-    // Encode the title parameter properly to handle spaces and special characters
-    final encodedTitle = Uri.encodeQueryComponent(title);
+    final encodedTitle =
+        Uri.encodeQueryComponent(title);
 
-    // Construct the base URL
-    final baseUrl = 'http://$ipAddress:5000/recommendations';
+    final recommendationsUrl = Uri.parse(
+      '$apiBaseUrl/recommendations?title=$encodedTitle',
+    );
 
-    // Modify the URL to include the query title and year if available
-    final recommendationsUrl = Uri.parse('$baseUrl?title=$encodedTitle');
+    final response =
+        await http.get(recommendationsUrl);
 
-    final recommendationsResponse = await http.get(recommendationsUrl);
-    if (recommendationsResponse.statusCode == 200) {
-      final List<dynamic> recommendedMovies =
-          jsonDecode(recommendationsResponse.body);
-      return recommendedMovies;
+    if (response.statusCode == 200) {
+
+      final decodedResponse =
+          jsonDecode(response.body);
+
+      return decodedResponse[
+          'recommendations'];
+
     } else {
-      throw Exception('Failed to fetch recommendations');
+
+      throw Exception(
+        'Failed to fetch recommendations '
+        'Status: ${response.statusCode}'
+      );
     }
+
   } catch (e) {
-    print('Error fetching recommended movies: $e');
+
+    print(
+      'Error fetching recommended movies: $e'
+    );
+
     return [];
   }
 }
