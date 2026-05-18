@@ -17,7 +17,7 @@ The application integrates data from the MovieLens dataset together with live mo
 - Personalized recommendations
 - Movie rating system
 - Watchlist functionality
-- Flask REST API backend
+- Fast REST API backend
 - Firebase Remote Config integration
 
 ---
@@ -30,7 +30,7 @@ The application integrates data from the MovieLens dataset together with live mo
 
 ### Backend
 - Python
-- Flask
+- FastAPI
 
 ### Machine Learning / Recommendation System
 - Pandas
@@ -73,7 +73,7 @@ The final recommendation score combines both content-based and collaborative fil
 1. User creates an account or logs in
 2. Movies are fetched from TMDB
 3. User searches or rates movies
-4. Flask API processes recommendation requests
+4. Fast API processes recommendation requests
 5. Hybrid recommendation engine generates personalized suggestions
 6. Results are displayed in the Flutter application
 
@@ -124,7 +124,7 @@ The recommendation engine uses the MovieLens Latest Small dataset, including:
 
 ## Future Improvements
 
-- Deploy Flask backend to cloud platforms
+- Deploy FastAPI backend to cloud platforms
 - Improve watchlist synchronization
 - Add iOS and Web support
 - Improve recommendation ranking algorithms
