@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:my_movie_recommender_app/movie.dart';
 
+
+
 import '../mediadetailspage.dart';
 import '../user_ratings.dart';
 

@@ -36,6 +36,7 @@ dependencies:
   shared_preferences: ^2.2.0
   firebase_remote_config: ^4.2.4
   flutter_launcher_icons: ^0.13.1
+  flutter_dotenv: ^5.2.1
   
   
   

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_movie_recommender_app/movie.dart';
 import 'package:http/http.dart' as http; // Import for making HTTP requests
 import 'dart:convert'; // Import the movie model if needed
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MovieGenres extends StatefulWidget {
   final String apiKey;
@@ -59,7 +60,7 @@ class _MovieGenresState extends State<MovieGenres> {
   Future<void> _fetchGenreMedia() async {
     try {
       final url =
-          'https://api.themoviedb.org/3/discover/movie?api_key=REMOVED_API_KEY&with_genres=${widget.selectedGenreId}';
+    "https://api.themoviedb.org/3/discover/movie?api_key=${dotenv.env['TMDB_API_KEY'] ?? ''}&with_genres=${widget.selectedGenreId}";
 
       final response = await http.get(Uri.parse(url));
 

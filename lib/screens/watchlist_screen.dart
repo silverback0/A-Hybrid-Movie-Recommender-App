@@ -71,7 +71,9 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
   }
 
   // Function to handle rating updates from the MediaDetailsPage
-  void _updateUserRating(Media media, double rating) {
+  void _updateUserRating(Media media, double? rating) {
+    if (rating == null) return;
+
     setState(() {
       // Find the index of the media in the watchlist
       int index = _watchlist.indexOf(media);
@@ -140,7 +142,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                     if (rating != null) {
                       _updateUserRating(media, rating);
                     }
-                                  },
+                  },
                 );
               },
             ),

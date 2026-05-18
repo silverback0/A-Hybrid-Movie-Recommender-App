@@ -12,6 +12,7 @@ import '../userprofile.dart';
 import 'moviegenres.dart';
 import 'watchlist_screen.dart';
 import 'similarmediascreen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // import'moviedetails.dart';
 
@@ -65,11 +66,11 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Future<void> fetchMedia() async {
-    const apiKey =
-        'REMOVED_API_KEY'; // Replace with your TMDB API key
-    const trendingUrl =
+    final apiKey =dotenv.env['TMDB_API_KEY'] ?? '';
+         // Replace with your TMDB API key
+    final trendingUrl =
         'https://api.themoviedb.org/3/trending/all/day?api_key=$apiKey';
-    const newReleaseUrl =
+    final newReleaseUrl =
         'https://api.themoviedb.org/3/movie/now_playing?api_key=$apiKey';
     var query;
     final searchUrl =
@@ -198,7 +199,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<Map<String, dynamic>> _fetchCastData(int mediaId) async {
     final url =
-        'https://api.themoviedb.org/3/movie/$mediaId/credits?api_key=REMOVED_API_KEY';
+        'https://api.themoviedb.org/3/movie/$mediaId/credits?api_key=$apiKey';
 
     final response = await http.get(Uri.parse(url));
 
@@ -241,7 +242,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetchSimilarMedia(Media media) async {
-    const apiKey = 'REMOVED_API_KEY';
+    final apiKey = dotenv.env['TMDB_API_KEY'] ?? '';
     final url =
         'https://api.themoviedb.org/3/movie/${media.id}/similar?api_key=$apiKey';
 
@@ -268,7 +269,7 @@ class _HomePageState extends State<HomePage> {
 
   void _searchMedia({required String query}) async {
     if (query.isNotEmpty) {
-      const apiKey = 'REMOVED_API_KEY';
+      final apiKey = dotenv.env['TMDB_API_KEY'] ?? '';
       final searchUrl =
           'https://api.themoviedb.org/3/search/multi?api_key=$apiKey&query=$query';
 
@@ -310,7 +311,7 @@ class _HomePageState extends State<HomePage> {
       MaterialPageRoute(
         builder: (context) => MovieGenres(
           apiKey:
-              'REMOVED_API_KEY', // Replace with your API key
+               dotenv.env['TMDB_API_KEY'] ?? '',
           selectedGenreId: genreId,
           genreName: genreName,
         ),

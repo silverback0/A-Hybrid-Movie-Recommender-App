@@ -81,12 +81,10 @@ class _SignInPageState extends State<SignInPage> {
                           errorMessage = error.toString();
                         }
                         String displayMessage;
-                        if (errorMessage != null &&
-                            errorMessage.contains('wrong-password')) {
+                        if (errorMessage?.contains('wrong-password') ?? false) {
                           displayMessage =
                               'Invalid password. Please try again.';
-                        } else if (errorMessage != null &&
-                            errorMessage.contains('user-not-found')) {
+                        } else if (errorMessage?.contains('user-not-found') ?? false) {
                           displayMessage =
                               'User not found. Please check your credentials.';
                         } else {

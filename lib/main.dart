@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_movie_recommender_app/firestore_service.dart';
+
 import 'package:my_movie_recommender_app/screens/RecommendedMoviesScreen.dart';
 import 'package:my_movie_recommender_app/screens/home_page.dart';
 
@@ -12,6 +13,7 @@ import 'package:my_movie_recommender_app/screens/movies_page.dart';
 import 'authentication_service.dart';
 import 'movie.dart';
 import 'userprofile.dart';
+import 'firebase_options.dart';
 
 import '../api_key.dart';
 import '../screens/profile_page.dart';
@@ -19,11 +21,18 @@ import '../screens/sign_in_page.dart';
 import '../screens/watchlist_screen.dart';
 import '../remote_config_service.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirestoreService firestoreService = FirestoreService.instance;
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await dotenv.load(fileName: ".env");
+
   await createCollections();
+
   RemoteConfigService remoteConfigService = RemoteConfigService();
   await remoteConfigService.initialize();
 
@@ -38,7 +47,7 @@ Future<void> createCollections() async {
 
     // Make an API call to retrieve movie data from TMDB
     final moviesResponse = await http.get(Uri.parse(
-        'https://api.themoviedb.org/3/discover/movie?api_key=REMOVED_API_KEY'));
+        'https://api.themoviedb.org/3/discover/movie?api_key=${dotenv.env['TMDB_API_KEY']}'));
     if (moviesResponse.statusCode == 200) {
       final moviesData = json.decode(moviesResponse.body);
       final movies = moviesData['results'];
@@ -59,14 +68,12 @@ Future<void> createCollections() async {
         });
       }
     } else {
-      print('Failed to fetch movies from TMDB');
+      debugPrint('Failed to fetch movies from TMDB');
     }
-    final CollectionReference userProfilesCollection =
-        FirebaseFirestore.instance.collection('userProfiles');
 
-    print('Collections created and populated successfully');
+    debugPrint('Collections created and populated successfully');
   } catch (e) {
-    print('Error creating collections: $e');
+    debugPrint('Error creating collections: $e');
   }
 }
 
@@ -87,12 +94,12 @@ class MyApp extends StatelessWidget {
               watchlist: const [],
               onAddToWatchlist: (media) {},
             ),
-        '/movies': (context) => const MoviesPage(
+        '/movies': (context) => MoviesPage(
             apiKey: apiKey,
             genre: '',
-            genreIds: [],
-            genreMedia: [],
-            genreNames: [],
+            genreIds: const [],
+            genreMedia: const [],
+            genreNames: const [],
             selectedGenreId: 0),
         '/profile': (context) => ProfilePage(
               userProfile: UserProfile(uid: '', email: '', name: ''),
@@ -155,12 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    const MoviesPage(
+    MoviesPage(
       apiKey: apiKey,
       genre: '',
-      genreIds: [],
-      genreMedia: [],
-      genreNames: [],
+      genreIds: const [],
+      genreMedia: const [],
+      genreNames: const [],
       selectedGenreId: 0,
     ),
     const RecommendedMoviesScreen(
@@ -179,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Map<String, dynamic>> fetchContent(
       String endpoint, String genre) async {
-    const apiKey = 'REMOVED_API_KEY';
+    final apiKey = dotenv.env['TMDB_API_KEY'] ?? '';
     final url =
         'https://api.themoviedb.org/3/$endpoint?api_key=$apiKey&with_genres=$genre';
 

@@ -9,8 +9,6 @@ Future<List<dynamic>> fetchRecommendedMovies(
     RemoteConfigService remoteConfigService =
         RemoteConfigService();
 
-    await remoteConfigService.initialize();
-
     // Get complete API URL from Firebase
     String apiBaseUrl =
         remoteConfigService.apiBaseUrl;
@@ -19,7 +17,7 @@ Future<List<dynamic>> fetchRecommendedMovies(
         Uri.encodeQueryComponent(title);
 
     final recommendationsUrl = Uri.parse(
-      '$apiBaseUrl/recommendations?title=$encodedTitle',
+      'http://$apiBaseUrl:8000/recommendations?title=$encodedTitle',
     );
 
     final response =
@@ -46,6 +44,7 @@ Future<List<dynamic>> fetchRecommendedMovies(
     print(
       'Error fetching recommended movies: $e'
     );
+
 
     return [];
   }
